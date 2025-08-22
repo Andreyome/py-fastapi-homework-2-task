@@ -107,11 +107,11 @@ async def create_movie(movie: MovieCreateSchema, db: AsyncSession = Depends(get_
 
     # Languages
     languages = []
-    for l in movie.languages:
-        l_q = await db.execute(select(LanguageModel).where(LanguageModel.name == l))
+    for lang in movie.languages:
+        l_q = await db.execute(select(LanguageModel).where(LanguageModel.name == lang))
         lang = l_q.scalar_one_or_none()
         if not lang:
-            lang = LanguageModel(name=l)
+            lang = LanguageModel(name=lang)
             db.add(lang)
             await db.flush()
         languages.append(lang)
