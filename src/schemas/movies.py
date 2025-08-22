@@ -11,19 +11,21 @@ class GenreSchema(BaseModel):
     id: int
     name: str
 
+
 class ActorSchema(BaseModel):
     id: int
     name: str
+
 
 class LanguageSchema(BaseModel):
     id: int
     name: str
 
+
 class CountrySchema(BaseModel):
     id: int
     code: str
     name: Optional[str]
-
 
 
 class MovieBase(BaseModel):
@@ -45,6 +47,7 @@ class MoviesListResponseSchema(BaseModel):
     total_pages: int
     total_items: int
 
+
 class MovieCreateSchema(BaseModel):
     name: str
     date: date
@@ -60,6 +63,7 @@ class MovieCreateSchema(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
+
 
 class MovieDetailSchema(BaseModel):
     id: int
@@ -77,7 +81,6 @@ class MovieDetailSchema(BaseModel):
 
     class Config:
         from_attributes = True
-
 
 
 class MovieUpdateSchema(BaseModel):

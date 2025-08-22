@@ -28,6 +28,7 @@ async def get_movie_by_id(session: AsyncSession, movie_id: int) -> MovieModel:
 
     return movie
 
+
 async def update_movie_partial(db: AsyncSession, movie_id: int, update_data: dict):
     result = await db.execute(select(MovieModel).where(MovieModel.id == movie_id))
     movie = result.scalars().first()
@@ -51,6 +52,7 @@ async def update_movie_partial(db: AsyncSession, movie_id: int, update_data: dic
         )
 
     return movie
+
 
 async def delete_movie(db: AsyncSession, movie_id: int):
     result = await db.execute(select(MovieModel).where(MovieModel.id == movie_id))
