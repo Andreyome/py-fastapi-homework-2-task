@@ -1,8 +1,8 @@
 # Write your code here
 from typing import Optional, List
 
-from pydantic import BaseModel
-from datetime import date
+from pydantic import BaseModel, Field, field_validator
+from datetime import date, datetime
 
 from database.models import MovieStatusEnum
 
@@ -49,12 +49,12 @@ class MoviesListResponseSchema(BaseModel):
 
 
 class MovieCreateSchema(BaseModel):
-    name: str
+    name: str = Field(..., max_length=255 )
     date: date
-    score: float
+    score: float = Field(...,ge=0, le=100 )
     overview: str
     status: MovieStatusEnum
-    budget: float
+    budget: float = Field(...,ge=0)
     revenue: float
     country: str
     genres: List[str]
@@ -63,6 +63,14 @@ class MovieCreateSchema(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
+
+    @field_validator("date")
+    @classmethod
+    def validate_date(cls, value):
+        current_year = datetime.now().year
+        if value.year > current_year + 1:
+            raise ValueError(f"The year in 'date' cannot be greater than {current_year + 1}.")
+        return value
 
 
 class MovieDetailSchema(BaseModel):
@@ -84,12 +92,12 @@ class MovieDetailSchema(BaseModel):
 
 
 class MovieUpdateSchema(BaseModel):
-    name: Optional[str] = None
+    name: Optional[str] = Field(None, max_length=255 )
     date: Optional[date] = None
-    score: Optional[float] = None
+    score: Optional[float] = Field(None, ge=0, le=100)
     overview: Optional[str] = None
     status: Optional[MovieStatusEnum] = None
-    budget: Optional[float] = None
+    budget: Optional[float] = Field(None, ge=0)
     revenue: Optional[float] = None
 
     class Config:
