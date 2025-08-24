@@ -19,7 +19,7 @@ class ActorSchema(BaseModel):
 
 class LanguageSchema(BaseModel):
     id: int
-    name: str
+    name: str = Field(..., min_length=1, max_length=50)
 
 
 class CountrySchema(BaseModel):
