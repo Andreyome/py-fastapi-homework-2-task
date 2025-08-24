@@ -49,12 +49,12 @@ class MoviesListResponseSchema(BaseModel):
 
 
 class MovieCreateSchema(BaseModel):
-    name: str = Field(..., max_length=255 )
+    name: str = Field(..., max_length=255)
     date: date
-    score: float = Field(...,ge=0, le=100 )
+    score: float = Field(..., ge=0, le=100)
     overview: str
     status: MovieStatusEnum
-    budget: float = Field(...,ge=0)
+    budget: float = Field(..., ge=0)
     revenue: float
     country: str
     genres: List[str]
@@ -92,7 +92,7 @@ class MovieDetailSchema(BaseModel):
 
 
 class MovieUpdateSchema(BaseModel):
-    name: Optional[str] = Field(None, max_length=255 )
+    name: Optional[str] = Field(None, max_length=255)
     date: Optional[date] = None
     score: Optional[float] = Field(None, ge=0, le=100)
     overview: Optional[str] = None
